@@ -5,7 +5,212 @@ import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        buoi23_6();
+        buoi2NoRegularExpression();
+    }
+
+    public static void buoi3DauCuaSo() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số nguyên A: ");
+            int a = scanner.nextInt();
+
+            int dauCuaA = (int)Math.signum(a);
+            System.out.println("Dấu của A: " + dauCuaA);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3SoMu() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số nguyên A: ");
+            int a = scanner.nextInt();
+
+            System.out.print("Nhập vào số nguyên N: ");
+            int b = scanner.nextInt();
+
+            int aMuB = (int) Math.pow(a, b);
+            System.out.println("Kết quả của A mũ B: " + aMuB);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3CanBac3() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số thực A: ");
+            double a = scanner.nextDouble();
+
+            double aCanBac3 = Math.cbrt(a);
+            System.out.println("Căn bậc 3 của số thức A: " + aCanBac3);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3LamTron() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số thực A: ");
+            double a = scanner.nextDouble();
+
+            double aLamTron = Math.round(a);
+            System.out.println("Số thực A sau khi làm tròn: " + aLamTron);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3LamTronXuong() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số thực A: ");
+            double a = scanner.nextDouble();
+
+            double aLamTronXuong = Math.floor(a);
+            System.out.println("Số thực A sau khi làm tròn xuống: " + aLamTronXuong);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3LamTronLen() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số thực A: ");
+            double a = scanner.nextDouble();
+
+            double aLamTronLen = Math.ceil(a);
+            System.out.println("Số thực A sau khi làm tròn lên: " + aLamTronLen);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3NgauNhien() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập giá trị đầu khoảng: ");
+            int from = scanner.nextInt();
+
+            System.out.print("Nhập giá trị cuối khoảng: ");
+            int to = scanner.nextInt();
+
+            if (to <= from) {
+                System.out.println("Giá trị cuối khoảng phải lớn hơn giá trị đầu khoảng!");
+                scanner.close();
+                return;
+            }
+
+            int random = (int) ((Math.random() * (to - from)) + from);
+            System.out.println("Số ngẫu nhiên trong khoảng từ " + from + " đến " + to + " là: " + random);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3GiaTriTuyetDoi() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số nguyên A: ");
+            int a = scanner.nextInt();
+
+            int giaTriTuyetDoiA = Math.abs(a);
+            System.out.println("Giá trị tuyệt đối của A là: " + giaTriTuyetDoiA);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3CanBac2() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số nguyên A: ");
+            int a = scanner.nextInt();
+
+            double canBac2CuaA = Math.sqrt(a);
+            System.out.println("Căn bậc 2 của số nguyên A là: " + canBac2CuaA);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3Min() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số nguyên A: ");
+            int a = scanner.nextInt();
+
+            System.out.print("Nhập vào số nguyên B: ");
+            int b = scanner.nextInt();
+
+            int min = Math.min(a, b);
+            System.out.println("Số nhỏ nhất là: " + min);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3Max() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào số nguyên A: ");
+            int a = scanner.nextInt();
+
+            System.out.print("Nhập vào số nguyên B: ");
+            int b = scanner.nextInt();
+
+            int max = Math.max(a, b);
+            System.out.println("Số lớn nhất là: " + max);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
     }
 
     public static void buoi23_6() {
@@ -150,6 +355,12 @@ public class GDUTrainingApplication {
             String[] splittedDomainName = domainName.split("\\.");
 
             if (splittedDomainName.length < 2) {
+                System.out.println(invalidMessage);
+                scanner.close();
+                return;
+            }
+
+            if (splittedDomainName[0].isEmpty()) {
                 System.out.println(invalidMessage);
                 scanner.close();
                 return;
