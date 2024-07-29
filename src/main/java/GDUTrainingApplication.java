@@ -1,11 +1,317 @@
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        buoi2NoRegularExpression();
+        buoi4ListRemove();
+    }
+
+    public static void buoi4ListRemove() {
+        List<String> strings = new ArrayList<>();
+
+        strings.add("Nguyễn Văn A");
+        strings.add("Trần Thị B");
+        strings.add("Lê Văn C");
+        strings.add("Phạm Thị D");
+
+        strings.remove(3);
+        strings.remove("Nguyễn Văn A");
+
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
+
+    public static void buoi4ListSize() {
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+
+        System.out.println(a.size());
+    }
+
+    public static void buoi4ListIndexOf() {
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+
+        System.out.println(a.indexOf(2));
+        System.out.println(a.indexOf(100));
+    }
+
+    public static void buoi4ListContains() {
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+        a.add(3);
+
+        System.out.println(a.contains(2));
+        System.out.println(a.contains(100));
+    }
+
+    public static void buoi4ListIsEmpty() {
+        List<Integer> a = new ArrayList<>();
+        a.add(1);
+        a.add(2);
+
+        System.out.println(a.isEmpty());
+
+        List<Integer> b = new ArrayList<>();
+        System.out.println(b.isEmpty());
+    }
+
+    public static void buoi4ListGet() {
+        List<String> strings = new ArrayList<>();
+
+        strings.add("Nguyễn Văn A");
+        strings.add("Trần Thị B");
+        strings.add("Lê Văn C");
+        strings.add("Phạm Thị D");
+
+        String string = strings.get(2);
+        System.out.println(string);
+    }
+
+    public static void buoi4ListAdd() {
+        List<String> strings = new ArrayList<>();
+
+        strings.add("Nguyễn Văn A");
+        strings.add("Trần Thị B");
+        strings.add("Lê Văn C");
+        strings.add("Phạm Thị D");
+
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
+
+    public static void buoi4MangCoDinh() {
+        String[] strings = {
+            "Nguyễn Văn A",
+            "Trần Thị B",
+            "Lê Văn C"
+        };
+
+        strings[3] = "Phạm Thị D";
+
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
+
+    public static void buoi3ForEach2() {
+        DanhSachSinhVien danhSachSinhVien = new DanhSachSinhVien();
+
+        for (String sinhVien : danhSachSinhVien) {
+            System.out.println(sinhVien);
+        }
+    }
+
+    public static void buoi3ForEach() {
+        String[] sinhViens = {
+                "Nguyễn Văn A",
+                "Trần Thị B",
+                "Lê Văn C",
+                "Phạm Thị D",
+                "Hoàng Văn E"
+        };
+
+        System.out.println("Danh sách sinh viên:");
+        for (String sinhVien : sinhViens) {
+            System.out.println(sinhVien);
+        }
+    }
+
+    public static void buoi3DoWhile() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập vào một nội dung bất kỳ: ");
+            String content = scanner.nextLine();
+
+            if (content.equals("exit")) {
+                break;
+            }
+
+            System.out.println(content);
+            System.out.println();
+        }
+        while (true);
+
+        scanner.close();
+    }
+
+    public static void buoi3While() {
+        Stack<Integer> stack = new Stack<>();
+
+        stack.push(1);
+        stack.push(3);
+        stack.push(5);
+        stack.push(7);
+        stack.push(9);
+
+        while (!stack.isEmpty()) {
+            System.out.println(stack.pop());
+        }
+    }
+
+    public static void buoi3For2() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào một số nguyên bất kỳ: ");
+            int a = scanner.nextInt();
+
+            int i = 0;
+            for ( ; ; ) {
+                if (a < 0 && i < a) {
+                    break;
+                }
+
+                if (a >= 0 && i > a) {
+                    break;
+                }
+
+                System.out.println(i);
+
+                if (a < 0) {
+                    i--;
+                }
+                else {
+                    i++;
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3For1() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào một số nguyên bất kỳ: ");
+            int a = scanner.nextInt();
+
+            if (a < 0) {
+                for (int i = 0 ; i >= a ; i--) {
+                    System.out.println(i);
+                }
+            }
+            else {
+                for (int i = 0 ; i <= a ; i++) {
+                    System.out.println(i);
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3ToanTuDieuKien() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào một số thực bất kỳ: ");
+            double a = scanner.nextDouble();
+
+            double ketQua = (a % 2 == 0 ? a / 2 : a);
+            System.out.println("Kết quả: " + ketQua);
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3SwitchCase() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào một số nguyên bất kỳ: ");
+            int a = scanner.nextInt();
+
+            switch (a) {
+                case 2: {
+                    System.out.println("Bạn vừa nhập vào con số 2!");
+                    break;
+                }
+
+                case 4: {
+                    System.out.println("Bạn vừa nhập vào con số 4!");
+                    break;
+                }
+
+                case 6: {
+                    System.out.println("Bạn vừa nhập vào con số 6!");
+                    break;
+                }
+
+                default: {
+                    System.out.println("Con số bạn vừa nhập không nằm trong danh sách!");
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3IfElseIfElse() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào một số nguyên bất kỳ: ");
+            int a = scanner.nextInt();
+
+            if (a % 2 == 0) {
+                System.out.println("Số nguyên bạn vừa nhập là số chia hết cho 2!");
+            }
+            else if (a % 3 == 0) {
+                System.out.println("Số nguyên bạn vừa nhập là số chia hết cho 3!");
+            }
+            else {
+                System.out.println("Số nguyên bạn vừa nhập không chia hết cho 2 cũng không chia hết cho 3!");
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi3IfElse() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.print("Nhập vào một số nguyên bất kỳ: ");
+            int a = scanner.nextInt();
+
+            if (a % 2 == 0) {
+                System.out.println("Số nguyên bạn vừa nhập là số chẵn!");
+            }
+            else {
+                System.out.println("Số nguyên bạn vừa nhập là số lẻ!");
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Nội dung bạn nhập không hợp lệ!");
+        }
+
+        scanner.close();
     }
 
     public static void buoi3DauCuaSo() {
