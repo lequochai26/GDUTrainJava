@@ -1,10 +1,407 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        buoi4ListRemove();
+        demoJavaStream();
+    }
+
+    public static void demoJavaStream() {
+        List<String> strings = new ArrayList<>();
+
+        strings.add("Nguyễn Văn A");
+        strings.add("Trần Thị B");
+        strings.add("Lê Văn C");
+        strings.add("Phạm Thị D");
+        strings.add("Nguyễn Đình E");
+
+        strings = strings.stream()
+                .filter(
+                        str -> str.startsWith("Nguyễn")
+                )
+                .toList();
+
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
+
+    public static void buoi4DateTimeFormatterFormat() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH-mm-ss");
+
+        LocalDateTime ngayVaGioHienTai = LocalDateTime.now();
+
+        String ngayVaGioHienTaiDaDinhDang = formatter.format(ngayVaGioHienTai);
+        System.out.println(ngayVaGioHienTaiDaDinhDang);
+    }
+
+    public static void buoi4DateTimeFormatter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH-mm-ss");
+
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("Nhập vào ngày và giờ (dd/MM/yyyy HH-mm-ss): ");
+            String content = scanner.nextLine();
+
+            try {
+                LocalDateTime ngayVaGio = LocalDateTime.from(
+                        formatter.parse(content)
+                );
+
+                int ngay = ngayVaGio.getDayOfMonth();
+                int thang = ngayVaGio.getMonthValue();
+                int nam = ngayVaGio.getYear();
+                int gio = ngayVaGio.getHour();
+                int phut = ngayVaGio.getMinute();
+                int giay = ngayVaGio.getSecond();
+
+                System.out.println("Ngày: " + ngay);
+                System.out.println("Tháng: " + thang);
+                System.out.println("Năm: " + nam);
+                System.out.println("Giờ: " + gio);
+                System.out.println("Phút: " + phut);
+                System.out.println("Giây: " + giay);
+
+                break;
+            }
+            catch (Exception e) {
+                System.out.println("Nội dung bạn nhập không hợp lệ!");
+                System.out.println();
+            }
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4LocalTimeAtDate() {
+        LocalTime gioHienTai = LocalTime.now();
+        LocalDate ngay5Thang6Nam2024 = LocalDate.of(2024, 6, 5);
+
+        LocalDateTime ngay5Thang6Nam24GioHienTai = gioHienTai.atDate(ngay5Thang6Nam2024);
+        System.out.println(ngay5Thang6Nam24GioHienTai);
+    }
+
+    public static void buoi4LocalTimeNow() {
+        LocalTime gioHienTai = LocalTime.now();
+        System.out.println(gioHienTai);
+    }
+
+    public static void buoi4LocalTimeOf() {
+        LocalTime gioChiDinh = LocalTime.of(15, 35, 23);
+        System.out.println(gioChiDinh);
+    }
+
+    public static void buoi4LocalDateAtTime() {
+        LocalDate ngayHienTai = LocalDate.now();
+        LocalDateTime ngayHienTaiLuc7Gio = ngayHienTai.atTime(19, 35, 21);
+
+        System.out.println(ngayHienTaiLuc7Gio);
+    }
+
+    public static void buoi4LocalDateMonth() {
+        LocalDate ngayHienTai = LocalDate.now();
+        int thang = ngayHienTai.getMonthValue();
+        System.out.println("Tháng hiện tại: " + thang);
+
+        LocalDate ngayNaoDo = LocalDate.of(2024, 5, 25);
+        int thangNaoDo = ngayNaoDo.getMonthValue();
+        System.out.println("Tháng nào đó: " + thangNaoDo);
+    }
+
+    public static void buoi4LocalDayOfMonth() {
+        LocalDate ngayHienTai = LocalDate.now();
+        int ngayTrongThang = ngayHienTai.getDayOfMonth();
+        System.out.println("Ngày trong tháng: " + ngayTrongThang);
+
+        LocalDate ngayNaoDo = LocalDate.of(2024, 7, 25);
+        int ngayTrongThangNaoDo = ngayNaoDo.getDayOfMonth();
+        System.out.println("Ngày trong tháng của ngày nào đó: " + ngayTrongThangNaoDo);
+    }
+
+    public static void buoi4LocalDateNow() {
+        LocalDate ngayHienTai = LocalDate.now();
+        System.out.println(ngayHienTai);
+    }
+
+    public static void buoi4LocalDateNew() {
+        LocalDate ngayNaoDo = LocalDate.of(2024, 7, 30);
+        System.out.println(ngayNaoDo);
+    }
+
+    public static void buoi4MapValues() {
+        Map<String, Double> diemSinhViens = new HashMap<>();
+
+        diemSinhViens.put("2108110118", 8.0);
+        diemSinhViens.put("2108110119", 10.0);
+        diemSinhViens.put("2108110320", 5.0);
+
+        Collection<Double> diemSinhVienValues = diemSinhViens.values();
+        for (Double diemSinhVien : diemSinhVienValues) {
+            System.out.println(diemSinhVien);
+        }
+    }
+
+    public static void buoi4MapKeySet() {
+        Map<String, Double> diemSinhViens = new HashMap<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập mã sinh viên (rỗng để thoát): ");
+            String maSinhVien = scanner.nextLine();
+
+            if (maSinhVien.isBlank()) {
+                break;
+            }
+
+            String diemSinhVien = null;
+            double diemSinhVienDouble = 0;
+
+            do {
+                try {
+                    System.out.print("Nhập điểm số của sinh viên (" + maSinhVien + ") [rỗng để thoát]: ");
+                    diemSinhVien = scanner.nextLine();
+
+                    if (diemSinhVien.isBlank()) {
+                        break;
+                    }
+
+                    diemSinhVienDouble = Double.parseDouble(diemSinhVien);
+                }
+                catch (Exception e) {
+                    System.out.print("Điểm số bắt buộc phải là một số thực!");
+                    System.out.println();
+                }
+
+                if (diemSinhVienDouble < 0 || diemSinhVienDouble > 10) {
+                    System.out.print("Điểm số không hợp lệ!");
+                    System.out.println();
+                }
+
+                break;
+            }
+            while (true);
+
+            if (diemSinhVien == null || diemSinhVien.isBlank()) {
+                break;
+            }
+
+            diemSinhViens.put(maSinhVien, diemSinhVienDouble);
+        }
+        while (true);
+
+        System.out.print("Nhập mã sinh viên bất kỳ (rỗng để thoát): ");
+        String maSinhVienKiemTra = scanner.nextLine();
+
+        if (maSinhVienKiemTra.isBlank()) {
+            return;
+        }
+
+        Set<String> maSinhViens = diemSinhViens.keySet();
+        if (maSinhViens.contains(maSinhVienKiemTra)) {
+            System.out.println("Sinh viên này có điểm!");
+        }
+        else {
+            System.out.println("Sinh viên này không có điểm!");
+        }
+    }
+
+    public static void buoi4MapRongKhong() {
+        Map<String, Double> diemSinhViens = new HashMap<>();
+        Map<String, Double> diemSinhViens2 = new HashMap<>();
+
+        diemSinhViens.put("2108110118", 8.0);
+        diemSinhViens.put("2108110119", 10.0);
+        diemSinhViens.put("2108110320", 5.0);
+
+        System.out.println(diemSinhViens.isEmpty());
+        System.out.println(diemSinhViens2.isEmpty());
+    }
+
+    public static void buoi4MapDuyet() {
+        Map<String, Double> diemSinhViens = new HashMap<>();
+
+        diemSinhViens.put("2108110118", 8.0);
+        diemSinhViens.put("2108110119", 10.0);
+        diemSinhViens.put("2108110320", 5.0);
+
+        Set<Map.Entry<String, Double>> entries = diemSinhViens.entrySet();
+        for (Map.Entry<String, Double> entry : entries) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+    }
+
+    public static void buoi4MapPut() {
+        Map<String, Double> diemSinhViens = new HashMap<>();
+
+        diemSinhViens.put("2108110118", 8.0);
+        diemSinhViens.put("2108110119", 10.0);
+        diemSinhViens.put("2108110320", 5.0);
+    }
+
+    public static void buoi4MapNew() {
+        Map<String, Double> diemSinhViens = new HashMap<>();
+    }
+
+    public static void buoi4SetRemove() {
+        Set<String> contents = new LinkedHashSet<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("Nhập vào nội dung bất kỳ (rỗng để thoát): ");
+
+            String content = scanner.nextLine();
+
+            if (content.isBlank()) {
+                break;
+            }
+
+            contents.add(content);
+            System.out.println();
+        }
+        while(true);
+
+        do {
+            System.out.println("Nhập vào nội dung cần loại bỏ: ");
+
+            String content = scanner.nextLine();
+
+            if (contents.remove(content)) {
+                break;
+            }
+            else {
+                System.out.println("Nội dung này bạn chưa từng nhập!");
+                System.out.println();
+            }
+        }
+        while(true);
+
+        System.out.println("Danh sách những nội dung bạn đã nhập: ");
+        for (String content : contents) {
+            System.out.println(content);
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi4SetSize() {
+        Set<String> contents = new LinkedHashSet<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("Nhập vào nội dung bất kỳ (rỗng để thoát): ");
+
+            String content = scanner.nextLine();
+
+            if (content.isBlank()) {
+                break;
+            }
+
+            contents.add(content);
+            System.out.println();
+        }
+        while(true);
+
+        System.out.println("Tổng số nội dung bạn đã nhập: " + contents.size());
+
+        scanner.close();
+    }
+
+    public static void buoi4SetContains() {
+        Set<String> contents = new LinkedHashSet<>();
+
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.println("Nhập vào nội dung bất kỳ (rỗng để thoát): ");
+
+            String content = scanner.nextLine();
+
+            if (content.isBlank()) {
+                break;
+            }
+
+            contents.add(content);
+            System.out.println();
+        }
+        while(true);
+
+        System.out.println("Nhập vào một chuỗi bất kỳ để kiểm tra: ");
+        String checkContent = scanner.nextLine();
+
+        if (contents.contains(checkContent)) {
+            System.out.println("Nội dung này bạn đã nhập.");
+        }
+        else {
+            System.out.println("Bạn chưa từng nhập nội dung này.");
+        }
+
+        scanner.close();
+    }
+
+    public static void buoi4SetRongHayKhong() {
+        Set<String> maSinhViens = new LinkedHashSet<>();
+        Set<String> maSinhViens2 = new LinkedHashSet<>();
+
+        maSinhViens.add("2108110118");
+        maSinhViens.add("2108110119");
+        maSinhViens.add("2108110118");
+
+        System.out.println(maSinhViens.isEmpty());
+        System.out.println(maSinhViens2.isEmpty());
+    }
+
+    public static void buoi4SetDuyet() {
+        Set<String> maSinhViens = new LinkedHashSet<>();
+
+        System.out.println(maSinhViens.add("2108110118"));
+        System.out.println(maSinhViens.add("2108110119"));
+        System.out.println(maSinhViens.add("2108110118"));
+
+        for (String maSinhVien : maSinhViens) {
+            System.out.println(maSinhVien);
+        }
+    }
+
+    public static void buoi4SetAdd2() {
+        Set<DanhSachSinhVien> danhSachSinhViens = new LinkedHashSet<>();
+
+        DanhSachSinhVien danhSachSinhVien1 = new DanhSachSinhVien();
+        DanhSachSinhVien danhSachSinhVien2 = new DanhSachSinhVien();
+
+        boolean ketQua1 = danhSachSinhViens.add(danhSachSinhVien1);
+        boolean ketQua2 = danhSachSinhViens.add(danhSachSinhVien2);
+
+        System.out.println("Kết quả 1: " + ketQua1);
+        System.out.println("Kết quả 2: " + ketQua2);
+    }
+
+    public static void buoi4SetAdd() {
+        Set<String> maSinhViens = new LinkedHashSet<>();
+
+        System.out.println(maSinhViens.add("2108110118"));
+        System.out.println(maSinhViens.add("2108110119"));
+        System.out.println(maSinhViens.add("2108110118"));
+
+        String a = "2108110118";
+        String b = "2108110119";
+
+        if (a.equals(b)) {
+            System.out.println("");
+        }
+    }
+
+    public static void buoi4SetNew() {
+        Set<String> maSinhViens = new LinkedHashSet<>();
     }
 
     public static void buoi4ListRemove() {
