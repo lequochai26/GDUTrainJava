@@ -1,3 +1,5 @@
+import java.io.*;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,7 +10,356 @@ import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        demoJavaStream();
+        buoi4FileReader();
+    }
+
+    public static void buoi4FileReader() {
+        Path path = Path.of("c.txt");
+        File file = path.toFile();
+
+        FileReader fileReader = null;
+
+        try {
+            fileReader = new FileReader(file);
+
+            String content = "";
+            do {
+                int c = fileReader.read();
+
+                if (c == -1) {
+                    break;
+                }
+
+                char character = (char)c;
+                content += character;
+            }
+            while (true);
+
+            System.out.println("Nội dung tệp tin này là: ");
+            System.out.println(content);
+        }
+        catch (IOException e) {
+            System.out.println("Xảy ra lỗi trong quá trình đọc tệp tin!");
+            e.printStackTrace();
+        }
+
+        if (fileReader != null) {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void buoi4FileInputStreamOutputStream() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập vào đường dẫn tuyệt đối bất kỳ (rỗng để thoát): ");
+            String path = scanner.nextLine();
+
+            if (path.isBlank()) {
+                break;
+            }
+
+            File file = new File(path);
+
+            if (!file.exists()) {
+                System.out.println("Tệp tin không tồn tại!");
+                break;
+            }
+
+            byte[] content = null;
+
+            FileInputStream fileInputStream = null;
+            try {
+                fileInputStream = new FileInputStream(file);
+
+                content = fileInputStream.readAllBytes();
+            }
+            catch (IOException e) {
+                System.out.println("Xảy ra lỗi trong quá trình đọc tệp tin!");
+                e.printStackTrace();
+            }
+
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (content != null) {
+                String fileName = file.getName();
+
+                Path writePath = Path.of(fileName);
+                File writeFile = writePath.toFile();
+
+                FileOutputStream fileOutputStream = null;
+                try {
+                    fileOutputStream = new FileOutputStream(writeFile);
+
+                    fileOutputStream.write(content);
+
+                    System.out.println("Ghi tệp thành công!");
+                }
+                catch (IOException e) {
+                    System.out.println("Xảy ra lỗi trong quá trình ghi tệp!");
+                    e.printStackTrace();
+                }
+
+                if (fileOutputStream != null) {
+                    try {
+                        fileOutputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            else {
+                System.out.println("Không tìm thấy nội dung tệp!");
+            }
+
+            System.out.println();
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4FileWriter() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập vào đường dẫn tuyệt đối bất kỳ (rỗng để thoát): ");
+            String path = scanner.nextLine();
+
+            if (path.isBlank()) {
+                break;
+            }
+
+            System.out.println("Nhập nội dung tệp tin (rỗng để thoát):");
+            String content = scanner.nextLine();
+
+            if (content.isBlank()) {
+                break;
+            }
+
+            File file = new File(path);
+
+            if (!file.exists()) {
+                File parentFile = file.getParentFile();
+
+                if (!parentFile.exists()) {
+                    parentFile.mkdirs();
+                }
+            }
+
+            FileWriter fileWriter = null;
+
+            try {
+                fileWriter = new FileWriter(file);
+
+                fileWriter.write(content);
+
+                System.out.println("Ghi tệp thành công!");
+            } catch (IOException e) {
+                System.out.println("Ghi tệp không thành công!");
+                e.printStackTrace();
+            }
+
+            try {
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println();
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4GetAbsolutePath() {
+        Path path = Path.of("b.txt");
+        File file2 = path.toFile();
+
+        System.out.println(file2.getAbsolutePath());
+    }
+
+    public static void buoi4RenameTo() {
+        Path bTxtPath = Path.of("b.txt");
+        File bTxtFile = bTxtPath.toFile();
+
+        Path cTxtPath = Path.of("c.txt");
+        File cTxtFile = cTxtPath.toFile();
+
+        boolean ketQua = bTxtFile.renameTo(cTxtFile);
+        if (ketQua) {
+            System.out.println("Đổi tên thành công!");
+        }
+        else {
+            System.out.println("Đổi tên không thành công!");
+        }
+    }
+
+    public static void buoi4Delete() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập vào đường dẫn bất kỳ (rỗng để thoát): ");
+            String path = scanner.nextLine();
+
+            if (path.isBlank()) {
+                break;
+            }
+
+            File file = new File(path);
+
+            if (file.exists()) {
+                boolean thanhCong = file.delete();
+                if (thanhCong) {
+                    System.out.println("Xóa thành công!");
+                }
+                else {
+                    System.out.println("Xóa không thành công!");
+                }
+            }
+            else {
+                System.out.println("Tệp tin hoặc thư mục này không tồn tại!");
+            }
+            System.out.println();
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4Mkdirs() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập vào đường dẫn bất kỳ (rỗng để thoát): ");
+            String path = scanner.nextLine();
+
+            if (path.isBlank()) {
+                break;
+            }
+
+            File file = new File(path);
+
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            else {
+                System.out.println("Dường dẫn này đã tồn tại, không cần tạo!");
+            }
+            System.out.println();
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4Exists() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập vào đường dẫn bất kỳ (rỗng để thoát): ");
+            String path = scanner.nextLine();
+
+            if (path.isBlank()) {
+                break;
+            }
+
+            File file = new File(path);
+
+            if (file.exists()) {
+                System.out.println("Đường dẫn này tồn tại.");
+            }
+            else {
+                System.out.println("Đường dẫn này không tồn tại!");
+            }
+            System.out.println();
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4CreateNewFile() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập tên tệp tin (rỗng để thoát): ");
+            String fileName = scanner.nextLine();
+
+            if (fileName.isBlank()) {
+                break;
+            }
+
+            Path path = Path.of(fileName);
+            File file = path.toFile();
+
+            try {
+                boolean fileCreated = file.createNewFile();
+
+                if (fileCreated) {
+                    System.out.println("Tạo tệp tin thành công!");
+                }
+                else {
+                    System.out.println("Tạo tệp tin không thành công!");
+                }
+            }
+            catch (IOException e) {
+                System.out.println("Đã có lỗi xảy ra trong lúc tạo tệp tin!");
+            }
+
+            System.out.println();
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4IsDirectory() {
+        Scanner scanner = new Scanner(System.in);
+
+        do {
+            System.out.print("Nhập vào đường dẫn bất kỳ (rỗng để thoát): ");
+            String path = scanner.nextLine();
+
+            if (path.isBlank()) {
+                break;
+            }
+
+            File file = new File(path);
+
+            if (file.isDirectory()) {
+                System.out.println("Đường dẫn bạn vừa cung cấp trỏ tới thư mục.");
+            }
+            else {
+                System.out.println("Đường dẫn bạn vừa cung cấp không trỏ tới thư mục!");
+            }
+            System.out.println();
+        }
+        while(true);
+
+        scanner.close();
+    }
+
+    public static void buoi4FileNew() {
+        // Cách 1:
+        // Absolute path: Đường dẫn tuyệt đối -> Trỏ đến một tệp tin hoặc thư mục bên ngoài dự án
+        File file = new File("C:\\Users\\lequochai\\Desktop\\a.txt");
+
+        // Cách 2
+        // Relative path: Đường dẫn tương đối -> Trỏ đến một tệp tin hoặc thư mục bên trong dự án
+        Path path = Path.of("b.txt");
+        File file2 = path.toFile();
     }
 
     public static void demoJavaStream() {
