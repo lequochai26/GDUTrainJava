@@ -1,3 +1,9 @@
+package vn.edu.giadinh;
+
+import vn.edu.giadinh.models.Employee;
+import vn.edu.giadinh.models.Person;
+import vn.edu.giadinh.models.User;
+
 import java.io.*;
 import java.nio.file.Path;
 import java.time.LocalDate;
@@ -10,8 +16,73 @@ import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        buoi4FileReader();
+        testPersonAndUserAndEmployee();
     }
+
+    public static void testPersonAndUserAndEmployee() {
+        Person userPerson = User.builder()
+                .name("Lê Quốc Hải User")
+                .birthday(LocalDateTime.now())
+                .address("Hồ Chí Minh")
+                .username("lequochai")
+                .password("123456")
+                .build();
+
+        Person employeePerson = Employee.builder()
+                .name("Lê Quốc Hải Employee")
+                .birthday(LocalDateTime.now())
+                .address("Hồ Chí Minh")
+                .role("Developer")
+                .build();
+
+        userPerson.say("Xin chào các bạn K17!");
+        employeePerson.say("Xin chào các bạn Khoa công nghệ thông tin!");
+    }
+
+    public static void testPersonAndUser() {
+//        System.out.println("Person: ");
+//
+//        Person person = new Person();
+//        person.setName("Lê Quốc Hải Person");
+//        person.setAddress("Hồ Chí Minh");
+//        person.setBirthday(LocalDateTime.now());
+//
+//        person.printInfo();
+//        person.printName();
+//
+//        System.out.println();
+
+        System.out.println("User: ");
+
+        User user = new User();
+        user.setName("Lê Quốc Hải User");
+        user.setAddress("Hồ Chí Minh");
+        user.setBirthday(LocalDateTime.now());
+        user.setUsername("lequochai");
+        user.setPassword("123456");
+
+        user.printInfo();
+        user.printName();
+
+        System.out.println();
+        System.out.println("Test đổi kiểu rộng hơn: ");
+
+        Person personUser = user;
+        personUser.printInfo();
+
+        System.out.println();
+
+        personUser.say("Xin chào các bạn K17!");
+    }
+
+//    public static void testPerson() {
+//        Person person = new Person();
+//        Person person2 = new Person(
+//                "Lê Quốc Hải",
+//                "Hồ Chí Minh",
+//                LocalDateTime.of(2003, 6, 5, 0, 0, 0)
+//        );
+//    }
 
     public static void buoi4FileReader() {
         Path path = Path.of("c.txt");

@@ -1,3 +1,5 @@
+package vn.edu.giadinh;
+
 import java.util.Iterator;
 
 public class DanhSachSinhVien implements Iterable<String> {
