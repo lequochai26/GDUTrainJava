@@ -1,8 +1,10 @@
 package vn.edu.giadinh;
 
-import vn.edu.giadinh.models.Employee;
-import vn.edu.giadinh.models.Person;
-import vn.edu.giadinh.models.User;
+import vn.edu.giadinh.enums.OrderStatus;
+import vn.edu.giadinh.interfaces.*;
+import vn.edu.giadinh.models.*;
+import vn.edu.giadinh.suppliers.IntTenToTwentySupplier;
+import vn.edu.giadinh.suppliers.IntZeroToTenSupplier;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -16,7 +18,163 @@ import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        testPersonAndUserAndEmployee();
+        buoi5TestLambdaExpression4();
+    }
+
+    public static void buoi5TestEnums() {
+        Order order = new Order();
+        order.setId("202406082037");
+        order.setDate(LocalDateTime.now());
+        order.setStatus(
+                OrderStatus.PAYMENT_AWAINTING
+        );
+    }
+
+    public static void buoi5TestLambdaExpression4() {
+        // Trường hợp có nhiều hơn 1 tham số và xử lý 1 dòng
+        Equals intEquals = (a, b) -> a == b ? true : a.equals(b);
+
+        int a = 1;
+        int b = 1;
+
+        System.out.println(intEquals.isEquals(a, b));
+    }
+
+    public static void buoi5TestLambdaExpression3() {
+        String content = "Hello World!";
+
+        Predicator<String> giamDinhChuoiRong = target -> target != null && !target.isBlank();
+        Predicator<String> giamDinhChuoiRong2 = target -> {
+            boolean targetNotNull = target != null;
+
+            if (!targetNotNull) {
+                return false;
+            }
+
+            boolean targetNotBlank = !target.isBlank();
+
+            return targetNotBlank;
+        };
+    }
+
+    public static void buoi5TestLambdaExpression2() {
+        // Không tham số và xử lý 1 dòng
+        Function printHelloWorld = () -> System.out.println("Hello World!");
+
+        // Không tham số xử lý nhiều dòng
+        Function printHelloWorld2 = () -> {
+            String content = "Hello World!";
+            System.out.println(content);
+        };
+    }
+
+    public static void buoi5TestLambdaExpression() {
+        // Trường hợp: Xử lý 1 dòng và trả ra kết quả luôn và ko có tham số
+        Supplier<List<Integer>> intSupplier = () -> List.of(0,1,2,3,4,5,6,7,8,9,10);
+
+        // Trường hợp: Xử lý nhiều dòng mới trả ra kết quả
+        Supplier<List<Integer>> intSupplier2 = () -> {
+            List<Integer> zeroToTen = List.of(0,1,2,3,4,5,6,7,8,9,10);
+
+            return zeroToTen.stream()
+                    .filter(
+                            integer -> integer != null && integer%2 == 0
+                    )
+                    .toList();
+        };
+
+        List<Integer> integers = intSupplier2.supply();
+
+        for (Integer integer : integers) {
+            System.out.println(integer);
+        }
+    }
+
+    public static void buoi5TestAnonymousClass() {
+        Supplier<List<Integer>> intSupplier = new Supplier<List<Integer>>() {
+            @Override
+            public List<Integer> supply() {
+                return List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            }
+        };
+
+        List<Integer> integers = intSupplier.supply();
+
+        for (Integer integer : integers) {
+            System.out.println(integer);
+        }
+
+        final String dogName = "Pup";
+
+        Animal dog = new Animal() {
+            @Override
+            public void eat() {
+                System.out.println(dogName + " is eating!");
+            }
+
+            @Override
+            public void sleep() {
+                System.out.println(dogName + " is sleeping!");
+            }
+
+            @Override
+            public void move() {
+                System.out.println(dogName + " is moving!");
+            }
+        };
+
+        dog.eat();
+        dog.sleep();
+        dog.move();
+    }
+
+    public static void buoi5TestInterface2() {
+        Supplier<List<Integer>> intSupplier = new IntTenToTwentySupplier();
+
+        List<Integer> integers = intSupplier.supply();
+
+        for (Integer integer : integers) {
+            System.out.println(integer);
+        }
+    }
+
+    public static void buoi5TestInterface() {
+        Human human = new Student("Nguyễn Thiện An", "2108110118");
+
+        Animal animal = human;
+
+        animal.sleep();
+        animal.eat();
+        animal.move();
+    }
+
+    public static void buoi5TestHuman() {
+        Human student = new Student("Nguyễn Văn A", "2108110118");
+        Human officer = new PoliceOfficer("Nguyễn Thiện An", "Cục trưởng cảnh sát");
+
+        // Sleep
+        System.out.println("Ngủ: ");
+        student.sleep();
+        officer.sleep();
+        System.out.println();
+
+        // Eat
+        System.out.println("Ăn: ");
+        student.eat();
+        officer.eat();
+        System.out.println();
+
+        // Move
+        System.out.println("Di chuyển: ");
+        student.move();
+        officer.move();
+        System.out.println();
+
+        // Say
+        System.out.println("Nói: ");
+        student.say();
+        officer.say();
+        System.out.println();
     }
 
     public static void testPersonAndUserAndEmployee() {
