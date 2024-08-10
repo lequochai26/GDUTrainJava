@@ -1,5 +1,6 @@
 package vn.edu.giadinh;
 
+import com.mysql.cj.jdbc.Driver;
 import vn.edu.giadinh.enums.OrderStatus;
 import vn.edu.giadinh.interfaces.*;
 import vn.edu.giadinh.models.*;
@@ -8,6 +9,9 @@ import vn.edu.giadinh.suppliers.IntZeroToTenSupplier;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -18,7 +22,35 @@ import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        buoi5TestLambdaExpression4();
+        buoi6TestConnection();
+    }
+
+    public static void buoi6TestConnection() {
+        try {
+            // Khởi tạo Driver
+            Driver driver = new Driver();
+
+            // Đăng ký Driver
+            DriverManager.registerDriver(driver);
+
+            // Viết thông tin kết nối HQTCSDL
+            String url = "jdbc:mysql://localhost:3306/tasksmanagement";
+            String username = "root";
+            String password = "Abc123456";
+
+            // Mở kết nối tới CSDL
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Thực hiện thao tác gì đó với CSDL
+            // ...
+
+            // Đóng kết nối
+            connection.close();
+
+            System.out.println("Kết nối thành công!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void buoi5TestEnums() {
