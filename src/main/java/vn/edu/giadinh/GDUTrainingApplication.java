@@ -4,13 +4,14 @@ import com.mysql.cj.jdbc.Driver;
 import vn.edu.giadinh.enums.OrderStatus;
 import vn.edu.giadinh.interfaces.*;
 import vn.edu.giadinh.models.*;
+import vn.edu.giadinh.tasksmanagement.utils.DBUtil;
 import vn.edu.giadinh.suppliers.IntTenToTwentySupplier;
-import vn.edu.giadinh.suppliers.IntZeroToTenSupplier;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +23,45 @@ import java.util.regex.Pattern;
 
 public class GDUTrainingApplication {
     public static void main(String[] args) {
-        buoi6TestConnection();
+        buoi6TestInsert();
+    }
+
+    public static void buoi6TestInsert() {
+        try {
+            Connection connection = DBUtil.connect();
+
+            String sql = "INSERT INTO task(title, description, status, progress, responsibility, tester)\n" +
+                    "values (\n" +
+                    "\t'Cập nhật dữ liệu',\n" +
+                    "    'Hãy cập nhật dữ liệu bất kỳ tùy thích.',\n" +
+                    "    'NEW',\n" +
+                    "    'TODO',\n" +
+                    "    'tranvana',\n" +
+                    "    'lequochai'\n" +
+                    ")";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.executeUpdate();
+
+            connection.close();
+
+            System.out.println("Thêm dữ liệu thành công!");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void buoi6TestConnection2() {
+        // Thử kết nối CSDL
+        try {
+            Connection connection = DBUtil.connect();
+            connection.close();
+            System.out.println("Kết nối thành công!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void buoi6TestConnection() {
